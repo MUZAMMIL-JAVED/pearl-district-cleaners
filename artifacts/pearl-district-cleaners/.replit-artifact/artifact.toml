@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Pearl District Cleaners"
+description = "A polished, pitch-ready website for Pearl District Cleaners in Portland, Oregon, showcasing dry cleaning, wash and fold, wedding garment care, stain removal, and easy contact options."
+version = "1.0.0"
+id = "artifacts/pearl-district-cleaners"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22970
+
+[services.development]
+run = "pnpm --filter @workspace/pearl-district-cleaners run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pearl-district-cleaners", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/pearl-district-cleaners/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22970"
+BASE_PATH = "/"
